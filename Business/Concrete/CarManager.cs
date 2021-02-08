@@ -21,6 +21,11 @@ namespace Business.Concrete
           
         }
 
+        public List<CarDetailDto> GetCarDetails()
+        {
+           return  _carDal.GetCarDetails();
+        }
+
         public List<Car> GetCarsByBrandId(int id)
         {
             return _carDal.GetAll(c => c.BrandId == id);
@@ -29,7 +34,7 @@ namespace Business.Concrete
 
         public List<Car> GetCarsByColorId(int id)
         {
-            return _carDal.GetAll(c => c.Id == id);
+            return _carDal.GetAll(c => c.ColorId == id);
             
         }
     }

@@ -2,7 +2,6 @@
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
-using Entities.Abstract;
 using Entities.Concrete;
 using System;
 
@@ -26,7 +25,7 @@ namespace ConsolUI
 
             while (giris == true)
             {
-                Console.WriteLine("Ekleme işlemi yapmak için : 1\nSilme işlemi yapmak için : 2\nGüncelleme işlemi için : 3\nBütün kayıtları getirmek için : 4\nModeline göre kayıt getirmek için : 5\nRengine göre kayıt getirmek için : 6\nÇıkış için : 0");
+                Console.WriteLine("Ekleme işlemi yapmak için : 1\nSilme işlemi yapmak için : 2\nGüncelleme işlemi için : 3\nBütün kayıtları getirmek için : 4\nModeline göre kayıt getirmek için : 5\nRengine göre kayıt getirmek için : 6\nGenel bilgi için : 7\nÇıkış için : 0");
                 int secim = Convert.ToInt32(Console.ReadLine());
 
                 string name;
@@ -38,17 +37,14 @@ namespace ConsolUI
 
                     Console.Write("Name : ");
                     name = Console.ReadLine();
-
-                    Console.Write("Id : ");
-                    ıd = Convert.ToInt32(Console.ReadLine());
-
+                
                     Console.Write("Brand Id : ");
                     brandId = Convert.ToInt32(Console.ReadLine());
 
                     Console.Write("Color Id : ");
                     colorId = Convert.ToInt32(Console.ReadLine());
 
-                    carDal.Add(new Car { Id = ıd, Name = name, BrandId = brandId, ColorId = colorId });
+                    carDal.Add(new Car  {CarName = name, BrandId = brandId, ColorId = colorId });
 
 
                 }
@@ -76,7 +72,7 @@ namespace ConsolUI
                     Console.Write("Color Id : ");
                     colorId = Convert.ToInt32(Console.ReadLine());
 
-                    Car carToUpdate = new Car { Id = ıd, BrandId = brandId, ColorId = colorId, Name = name };
+                    Car carToUpdate = new Car { Id = ıd, BrandId = brandId, ColorId = colorId, CarName = name };
                     carDal.Update(carToUpdate);
 
                 }
@@ -84,9 +80,11 @@ namespace ConsolUI
                 {
                     foreach (var car in carManager.GetAll())
                     {
-                        Console.WriteLine("Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id, car.Name, car.BrandId, car.ColorId);
-                        
+                        Console.WriteLine("Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id, car.CarName, car.BrandId, car.ColorId);
+                        Console.WriteLine("=======================");
                     }
+                    System.Threading.Thread.Sleep(8000);
+                    Console.Clear();
                 }
                 else if (secim == 5)
                 {
@@ -94,8 +92,10 @@ namespace ConsolUI
                     ıd = Convert.ToInt32(Console.ReadLine());
                     foreach (var car in carManager.GetCarsByBrandId(ıd))
                     {
-                        Console.WriteLine("Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id, car.Name, car.BrandId, car.ColorId);
+                        Console.WriteLine("Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id, car.CarName, car.BrandId, car.ColorId);
                     }
+                    System.Threading.Thread.Sleep(8000);
+                    Console.Clear();
                 }
                 else if (secim == 6)
                 {
@@ -103,8 +103,20 @@ namespace ConsolUI
                     ıd = Convert.ToInt32(Console.ReadLine());
                     foreach (var car in carManager.GetCarsByColorId(ıd))
                     {
-                        Console.WriteLine("Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id, car.Name, car.BrandId, car.ColorId);
+                        Console.WriteLine("Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id, car.CarName, car.BrandId, car.ColorId);
                     }
+                    System.Threading.Thread.Sleep(8000);
+                    Console.Clear();
+                }
+                else if (secim==7)
+                {
+                    foreach (var car in carManager.GetCarDetails())
+                    {
+                        Console.WriteLine("Car Id : {0}\nCar Name {1}\nBrand Name : {2}\nColor Name : {3} ",car.CarId,car.CarName,car.BrandName,car.ColorName);
+                        Console.WriteLine("==========================");
+                    }
+                    System.Threading.Thread.Sleep(8000);
+                    Console.Clear();
                 }
                 else if (secim == 0)
                 {

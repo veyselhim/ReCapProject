@@ -1,4 +1,6 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,96 +11,21 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, ReCapProjectContext>, ICarDal
     {
-       
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetails()
         {
             using (ReCapProjectContext context = new ReCapProjectContext())
             {
-                try
-                {
-                    var addedEntity = context.Entry(entity);
-                    addedEntity.State = EntityState.Added;
-                    context.SaveChanges();
+                var result = from c in context.Cars
+                             join b in context.Brands on c.BrandId equals b.BrandId
+                             join cl in context.Colors on c.ColorId equals cl.ColorId
+                             select new CarDetailDto { CarId = c.Id, BrandName = b.BrandName, CarName = c.CarName, ColorName = cl.ColorName };
+                return result.ToList();
+                             
 
-                    Console.WriteLine("Ekleme işlemi tamamlandı.");
-                    System.Threading.Thread.Sleep(2000);//2 saniye bekle
-                    Console.Clear();
-
-                }
-                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
-                {
-                    Console.WriteLine("Lütfen Girilmemiş bir Id giriniz.");
-                }
-
-               
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            try
-            {
-                using (ReCapProjectContext context = new ReCapProjectContext())
-                {
-                    var deletedEntity = context.Entry(entity);
-                    deletedEntity.State = EntityState.Deleted;
-                    context.SaveChanges();
-                    Console.WriteLine("Kayıt silindi.");
-                    System.Threading.Thread.Sleep(2000);
-                    Console.Clear();
-                }
-            }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
-            {
-                Console.WriteLine("Olmayan kayıt silinemez");
-            }
-           
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (ReCapProjectContext context = new ReCapProjectContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-                System.Threading.Thread.Sleep(2000);
-                Console.Clear();
 
             }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (ReCapProjectContext context = new ReCapProjectContext())
-            {
-                return filter == null ? context.Set<Car>().ToList() : context.Set<Car>().Where(filter).ToList();
-                System.Threading.Thread.Sleep(2000);
-                Console.Clear();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            try
-            {
-                using (ReCapProjectContext context = new ReCapProjectContext())
-                {
-                    var updatedEntity = context.Entry(entity);
-                    updatedEntity.State = EntityState.Modified;
-                    context.SaveChanges();
-
-                    Console.WriteLine("Kayıt güncellendi.");
-                    System.Threading.Thread.Sleep(2000);
-                    Console.Clear();
-                }
-            }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
-            {
-                Console.WriteLine("Olmayan kayıt güncellenemez.");
-            }
-           
-            
         }
     }
 }
