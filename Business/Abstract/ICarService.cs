@@ -2,17 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Utilities.Results;
 
 namespace Business.Abstract
 {
     public interface ICarService
     {
-        List<Car> GetAll();
+       IDataResult<List<Car>> GetAll();
 
-        List<Car> GetCarsByBrandId(int id);
+       IDataResult<List<Car>> GetCarsByBrandId(int id);
 
-        List<Car> GetCarsByColorId(int id);
+       IDataResult<List<Car>> GetCarsByColorId(int id);
 
-        List<CarDetailDto> GetCarDetails();
+       IDataResult<List<CarDetailDto>> GetCarDetails();
+
+       IDataResult<Car> GetById(int carId);
+
+       IResult Add(Car car);
+
+       IResult Delete(Car car);
+
+       IResult Update(Car car);
+
     }
 }

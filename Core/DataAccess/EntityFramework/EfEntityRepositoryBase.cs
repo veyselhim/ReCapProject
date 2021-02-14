@@ -14,9 +14,10 @@ namespace Core.DataAccess.EntityFramework
     {
         public void Add(TEntity entity)
         {
+           
             using (TContext context = new TContext())//using içindeki context garbage collector yardımıyla belleği hızlıca temizler.Performans için yazdık.
             {
-                var addedEntity = context.Entry(entity);//Veri kaynağından gönderdiğim productla eşleştir.Referansı yakala 
+                var addedEntity = context.Entry(entity); 
                 addedEntity.State = EntityState.Added;//Ekleme işlemi yapılacağını bildirdik. 
                 context.SaveChanges();//İşlemleri gerçekleştir.
                 Console.WriteLine("Ekleme işlemi yapılmıştır..");
