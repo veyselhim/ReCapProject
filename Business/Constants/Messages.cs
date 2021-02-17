@@ -14,6 +14,8 @@ namespace Business.Constants
         public static string CarInvalid = "Geçersiz araba";
         public static string CarListed = "Arabalar Listelendi";
         public static string CarDeleted = "Araba Silindi";
+        public static string CarUpdated = "Araba Güncellendi";
+
 
 
         public static string UserAdded = "Kullanıcı Eklendi";//Publicler pascal keys yazılır : Büyük harf
@@ -34,7 +36,7 @@ namespace Business.Constants
         public static string RentalAdded = "Araba kiralandı";//Publicler pascal keys yazılır : Büyük harf
         public static string RentalInvalid = "Geçersiz kullanıcı";
         public static string RentalListed = "Kiralar Listelendi";
-        public static string RentalDeleted = "Kira bilgisi silibdi";
+        public static string RentalDeleted = "Kira bilgisi silindi";
         public static string RentalUpdated = "Kira güncellendi";
 
 

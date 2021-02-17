@@ -20,12 +20,10 @@ namespace Core.DataAccess.EntityFramework
                 var addedEntity = context.Entry(entity); 
                 addedEntity.State = EntityState.Added;//Ekleme işlemi yapılacağını bildirdik. 
                 context.SaveChanges();//İşlemleri gerçekleştir.
-                Console.WriteLine("Ekleme işlemi yapılmıştır..");
                 System.Threading.Thread.Sleep(2000);
 
             }
 
-            Console.Clear();
         }
 
         public void Delete(TEntity entity)
@@ -37,7 +35,6 @@ namespace Core.DataAccess.EntityFramework
                     var deletedEntity = context.Entry(entity);
                     deletedEntity.State = EntityState.Deleted;
                     context.SaveChanges();
-                    Console.WriteLine("Sİlme işlemi yapılmıştır..");
                     System.Threading.Thread.Sleep(2000);// wait 2 seconds
 
                 }
@@ -45,11 +42,9 @@ namespace Core.DataAccess.EntityFramework
             catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
             {
 
-                Console.WriteLine("Lütfen varolan kayıtları siliniz.");
                 System.Threading.Thread.Sleep(2000);
 
             }
-            Console.Clear();// clear console
 
 
         }
@@ -74,26 +69,17 @@ namespace Core.DataAccess.EntityFramework
 
         public void Update(TEntity entity)
         {
-            try
+
+            using (TContext context = new TContext())
             {
-                using (TContext context = new TContext())
-                {
-                    var updatedEntity = context.Entry(entity);
-                    updatedEntity.State = EntityState.Modified;
-                    context.SaveChanges();
-                    Console.WriteLine("Güncelleme işlemi yapılmıştır..");
-                    System.Threading.Thread.Sleep(2000);
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+                context.SaveChanges();
+                System.Threading.Thread.Sleep(2000);
 
-                }
+                System.Threading.Thread.Sleep(2000);
+
             }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
-            {
-                Console.WriteLine("Lütfen varolan kayıtları güncelleyiniz..");             
-            }
-            System.Threading.Thread.Sleep(2000);
-
-            Console.Clear();
-
         }
     }
 }

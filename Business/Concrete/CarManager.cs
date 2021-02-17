@@ -43,7 +43,7 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
 
-            return new Result(true, Messages.CarDeleted);
+            return new Result(true, Messages.CarUpdated);
 
         }
 
@@ -53,11 +53,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
-       
+        public IDataResult<List<Car>> GetCarsByUnitPrice(decimal min , decimal max)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.UnitPrice>=min &&c.UnitPrice<=max));
+
+        }
+
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id),Messages.CarListed);
             
         }
 
@@ -79,7 +84,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.ColorId == carId));
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
         }
     }
 }

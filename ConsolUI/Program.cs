@@ -39,9 +39,9 @@ namespace ConsolUI
                                   "Müşteri eklemek için : 12\n"+
                                   "Müşteri silmek için : 13\n"+
                                   "Müşteri güncellemek için : 14\n"+
-                                  "Araba kirala : 15"+
-                                  "Kiralama bilgisini güncelle : 16"+
-                                  "Kira bilgilerini getir : 17"+
+                                  "Araba kirala : 15\n"+
+                                  "Kiralama bilgisini güncelle : 16\n"+
+                                  "Kira bilgilerini getir : 17\n"+
                                   "Çıkış için : 0");
 
 
@@ -173,12 +173,13 @@ namespace ConsolUI
             System.Threading.Thread.Sleep(8000);
             Console.Clear();
         }
-
+       public static DateTime rentDate = DateTime.Now;
         private static void RentalUpdate(RentalManager rentalManager)
         {
             int Id;
             int carId;
             int customerId;
+          
             Console.WriteLine("Id : ");
             Id = Convert.ToInt32(Console.ReadLine());
 
@@ -190,7 +191,7 @@ namespace ConsolUI
 
 
             rentalManager.Update(new Rental
-                {Id = Id, CustomerId = customerId, CarId = carId, ReturnDate = DateTime.Now.Date.ToString("yyyy MMMM dd")});
+                {Id = Id, CustomerId = customerId, CarId = carId, ReturnDate = DateTime.Now,RentDate = rentDate});
         }
 
         private static void RentalAdd(RentalManager rentalManager)
@@ -204,7 +205,7 @@ namespace ConsolUI
             customerId = Convert.ToInt32(Console.ReadLine());
 
             rentalManager.Add(new Rental
-                {CarId = carId, CustomerId = customerId, RentDate = DateTime.Now.Date.ToString("yyyy MMMM dd")});
+                {CarId = carId, CustomerId = customerId, RentDate = DateTime.Now});
         }
 
         private static void DeleteCustomer(CustomerManager customerManager)

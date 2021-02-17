@@ -48,7 +48,7 @@ namespace Business.Concrete
         {
             _userDal.Update(user);
 
-            return new Result(true, Messages.UserDeleted);
+            return new Result(true, Messages.UserUpdated);
 
 
         }
