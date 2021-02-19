@@ -6,7 +6,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -19,16 +23,13 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
 
-            if (car.CarName.Length < 2)
-            {    //magic strings : stringleri ayrı ayrı yazmak.Kötü kullaımdır.Tek merkezden standartlaştırmak gerekli.
-                return new ErrorResult(Messages.CarInvalid);
-            }
             _carDal.Add(car);
 
-            return new Result(true, Messages.CarAdded);
+            return new SuccessResult(Messages.CarAdded);
 
 
         }
