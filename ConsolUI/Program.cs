@@ -2,6 +2,7 @@
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
+using Core.Entities.Concrete;
 
 namespace ConsolUI
 {
@@ -173,7 +174,7 @@ namespace ConsolUI
             System.Threading.Thread.Sleep(8000);
             Console.Clear();
         }
-       public static DateTime rentDate = DateTime.Now;
+       public static DateTime rentDate;
         private static void RentalUpdate(RentalManager rentalManager)
         {
             int Id;
@@ -254,7 +255,6 @@ namespace ConsolUI
             string firstName;
             string lastName;
             string eMail;
-            string password;
 
             Console.Write("Id : ");
             id = Convert.ToInt32(Console.ReadLine());
@@ -268,19 +268,18 @@ namespace ConsolUI
             Console.Write("E-Mail : ");
             eMail = Console.ReadLine();
 
-            Console.Write("Password : ");
-            password = Console.ReadLine();
+          
 
 
             userManager.Update(new User
-                {UserId = id, FirstName = firstName, LastName = lastName, Email = eMail, Password = password});
+                {UserId = id, FirstName = firstName, LastName = lastName, Email = eMail});
         }
 
         private static void GetUsersInfo(UserManager userManager)
         {
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine("User Id : {0}\nUser First Name : {1}\nUser Last Name : {2}\nUser E-mail : {3}\nUser Password : {4}", user.UserId, user.FirstName, user.LastName, user.Email, user.Password);
+                Console.WriteLine("User Id : {0}\nUser First Name : {1}\nUser Last Name : {2}\nUser E-mail : {3}\nUser Password : {4}", user.UserId, user.FirstName, user.LastName, user.Email);
                 Console.WriteLine("=======================");
             }
 
@@ -316,7 +315,7 @@ namespace ConsolUI
             Console.Write("Password : ");
             password = Console.ReadLine();
 
-            userManager.Add(new User {FirstName = firstName, LastName = lastName, Email = eMail, Password = password});
+            userManager.Add(new User {FirstName = firstName, LastName = lastName, Email = eMail});
         }
 
 

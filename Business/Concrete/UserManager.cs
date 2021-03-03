@@ -6,9 +6,9 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using FluentValidation;
 
 namespace Business.Concrete
@@ -53,6 +53,17 @@ namespace Business.Concrete
             return new Result(true, Messages.UserUpdated);
 
 
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+
+        }
+
+        public User GetByEmail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
         }
     }
 }
