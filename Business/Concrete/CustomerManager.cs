@@ -9,6 +9,7 @@ using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using FluentValidation;
 
 namespace Business.Concrete
@@ -16,7 +17,7 @@ namespace Business.Concrete
     public class CustomerManager:ICustomerService
     {
         private ICustomerDal _customerDal;
-        
+
         public CustomerManager(ICustomerDal customerDal)
         {
             _customerDal = customerDal;
@@ -55,6 +56,15 @@ namespace Business.Concrete
             return new Result(true, Messages.CustomerUpdated);
         }
 
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        {
 
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails(),Messages.CustomerListed);
+        }
+
+        public IDataResult<CustomerDetailDto> GetByEmail(string email)
+        {
+            return new SuccessDataResult<CustomerDetailDto>(_customerDal.GetByEmail(c => c.Email == email),Messages.CustomerListed);
+        }
     }
 }

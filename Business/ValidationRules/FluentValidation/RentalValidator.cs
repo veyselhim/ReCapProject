@@ -13,7 +13,6 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(r => r.ReturnDate).NotEmpty().WithMessage("Return Date can't empty.");
             RuleFor(r => r.CarId).NotEmpty().WithMessage("Car Id can't empty");
             RuleFor(r => r.CustomerId).NotEmpty().WithMessage("Customer Id can't empty");
-
         }
 
      

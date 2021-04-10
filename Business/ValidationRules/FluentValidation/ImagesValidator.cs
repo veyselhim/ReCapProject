@@ -6,12 +6,11 @@ using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class CarImageValidator:AbstractValidator<CarImage>
+    public class ImagesValidator : AbstractValidator<Images>
     {
-        public CarImageValidator()
+        public ImagesValidator()
         {
-            RuleFor(i => i.CarId).NotEmpty();
-            RuleFor(i => i.ImagePath).NotEmpty();
+            RuleFor(c => c.CarId).NotNull();
         }
     }
 }

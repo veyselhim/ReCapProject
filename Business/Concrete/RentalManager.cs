@@ -9,6 +9,7 @@ using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using FluentValidation;
 
 namespace Business.Concrete
@@ -34,7 +35,7 @@ namespace Business.Concrete
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new Result(true,Messages.RentalDeleted);
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         //public IResult DeliveryTheCar(Rental rental)
@@ -50,11 +51,18 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.RentalListed);
         }
 
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(),Messages.RentalListed);
+        }
+
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
 
-            return new Result(true,Messages.RentalUpdated);
+            return new SuccessResult(Messages.RentalUpdated);
         }
+
+       
     }
 }

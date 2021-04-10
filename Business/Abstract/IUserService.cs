@@ -11,16 +11,14 @@ namespace Business.Abstract
 
         List<OperationClaim> GetClaims(User user);
 
+        IResult EditProfil(User user, string password);
 
-
-       // IDataResult<List<Users>> GetUsersById(int id);
-
-
-      //  IDataResult<List<CarDetailDto>> GetCarDetails();
-       
         IDataResult<User> GetById(int userId);
 
         User GetByEmail(string email);
+
+        IDataResult<User> GetUserByEmail(string email);
+
 
         IResult Add(User user);
 

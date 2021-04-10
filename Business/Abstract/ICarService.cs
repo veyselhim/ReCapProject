@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Core.Utilities.Results;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -16,9 +17,17 @@ namespace Business.Abstract
 
        IDataResult<List<Car>> GetCarsByColorId(int id);
 
+       IDataResult<List<CarDetailDto>> GetCarsByColorAndBrand(int colorId, int brandId);
+
        IDataResult<List<CarDetailDto>> GetCarDetails();
 
-       IDataResult<Car> GetById(int carId);
+       IDataResult<List<CarDetailDto>> GetCarDetail(int carId);
+
+
+        IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colorId);
+       IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId);
+
+        IDataResult<Car> GetById(int carId);
 
        IResult Add(Car car);
 

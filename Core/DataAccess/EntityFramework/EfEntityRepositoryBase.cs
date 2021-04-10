@@ -20,7 +20,6 @@ namespace Core.DataAccess.EntityFramework
                 var addedEntity = context.Entry(entity); 
                 addedEntity.State = EntityState.Added;//Ekleme işlemi yapılacağını bildirdik. 
                 context.SaveChanges();//İşlemleri gerçekleştir.
-                System.Threading.Thread.Sleep(2000);
 
             }
 
@@ -35,14 +34,12 @@ namespace Core.DataAccess.EntityFramework
                     var deletedEntity = context.Entry(entity);
                     deletedEntity.State = EntityState.Deleted;
                     context.SaveChanges();
-                    System.Threading.Thread.Sleep(2000);// wait 2 seconds
 
                 }
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
             {
 
-                System.Threading.Thread.Sleep(2000);
 
             }
 
@@ -63,7 +60,9 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {           //filter boş mu     EVET ise bütün datayı döndür           HAYIR ise filtreyi uygula 
-                return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();
+                return filter == null
+                    ? context.Set<TEntity>().ToList()
+                    : context.Set<TEntity>().Where(filter).ToList();
             }
         }
 
@@ -75,9 +74,6 @@ namespace Core.DataAccess.EntityFramework
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
-                System.Threading.Thread.Sleep(2000);
-
-                System.Threading.Thread.Sleep(2000);
 
             }
         }

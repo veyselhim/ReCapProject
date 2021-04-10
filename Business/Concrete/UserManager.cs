@@ -8,6 +8,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
 using FluentValidation;
 
@@ -64,6 +65,31 @@ namespace Business.Concrete
         public User GetByEmail(string email)
         {
             return _userDal.Get(u => u.Email == email);
+        }
+
+        public IResult EditProfil(User user, string password)
+        {
+            byte[] passwordHash, passwordSalt;
+
+            HashingHelper.CreatePasswordHash(password,out passwordHash, out passwordSalt);
+            var updatedUser = new User
+            {
+                UserId = user.UserId,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = user.Status
+            };
+            _userDal.Update(updatedUser);
+
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+        public IDataResult<User> GetUserByEmail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
         }
     }
 }

@@ -350,7 +350,7 @@ namespace ConsolUI
             foreach (var car in carManager.GetCarsByColorId(id).Data)
             {
                 Console.WriteLine(
-                    "Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id,
+                    "Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.CarId,
                     car.CarName, car.BrandId, car.ColorId);
             }
 
@@ -366,7 +366,7 @@ namespace ConsolUI
             foreach (var car in carManager.GetCarsByBrandId(id).Data)
             {
                 Console.WriteLine(
-                    "Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id,
+                    "Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.CarId,
                     car.CarName, car.BrandId, car.ColorId);
             }
 
@@ -379,7 +379,7 @@ namespace ConsolUI
             foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(
-                    "Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.Id,
+                    "Id of Car : {0}\nName of Car : {1}\nBrand Id of Car : {2}\nColor Id of Car : {3}\n", car.CarId,
                     car.CarName, car.BrandId, car.ColorId);
                 Console.WriteLine("=======================");
             }
@@ -406,7 +406,7 @@ namespace ConsolUI
             Console.Write("Color Id : ");
             colorId = Convert.ToInt32(Console.ReadLine());
 
-            Car carToUpdate = new Car {Id = id, BrandId = brandId, ColorId = colorId, CarName = name};
+            Car carToUpdate = new Car {CarId = id, BrandId = brandId, ColorId = colorId, CarName = name};
             carManager.Update(carToUpdate);
         }
         private static void DeleteCar(CarManager carManager)
@@ -415,7 +415,7 @@ namespace ConsolUI
             Console.Write("Id : ");
             Id = Convert.ToInt32(Console.ReadLine());
 
-            Car carToDelete = new Car {Id = Id};
+            Car carToDelete = new Car {CarId = Id};
             carManager.Delete(carToDelete);
         }
        
