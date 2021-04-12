@@ -10,6 +10,7 @@ using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Security.JWT;
+using Entities.Concrete;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -46,6 +47,9 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<CardManager>().As<ICardService>().SingleInstance();
             builder.RegisterType<EfCardDal>().As<ICardDal>().SingleInstance();
+
+            builder.RegisterType<ContactManager>().As<IContactService>().SingleInstance();
+            builder.RegisterType<EfContactDal>().As<IContactDal>().SingleInstance();
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

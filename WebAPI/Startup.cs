@@ -71,7 +71,7 @@ namespace WebAPI
             }
             app.ConfigureCustomExceptionMiddleware();
 
-            app.UseStaticFiles();
+            app.UseStaticFiles();  //resim iþlemleri için
 
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
             

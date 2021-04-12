@@ -86,6 +86,8 @@ namespace Business.Constants
         public static string CarImageLimitExceeded = "Arabaya resim ekleme limitine ulaşıldı";
         public static string SuccesfulRegister = "Registration successful";
         public static string BadRegister = "Registration failed";
-
+        public static string contactAdded="Mesaj Başarıyla Gönderildi";
+        public static string badContact = "Mesaj Gönderilemedi";
+        public static string contacsListed="Mesajlar Gösterildi";
     }
 }
